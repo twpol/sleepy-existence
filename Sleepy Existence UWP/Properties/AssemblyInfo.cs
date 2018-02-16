@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Sleepy Existence UWP")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Sleepy Existence")]
+[assembly: AssemblyDescription("Sleepy Existence is a Windows 10 desktop, tablet, and mobile application for manually entering sleep data into Exist.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Sleepy Existence UWP")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
+[assembly: AssemblyProduct("Sleepy Existence")]
+[assembly: AssemblyCopyright("Copyright © 2018 James Ross")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
