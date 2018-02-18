@@ -33,7 +33,7 @@
 
         <TextBlock Text="In to Bed" TextWrapping="Wrap" Grid.Row="2" Margin="6" VerticalAlignment="Center" Grid.Column="1"/>
         <TextBlock x:Name="textBlockInBed" Text="00:00" TextWrapping="Wrap" Grid.Row="2" Grid.Column="2" Margin="6" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Button x:Name="buttonSetInBed" Content="Set" Grid.Row="2" Grid.Column="3" Margin="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="buttonSetInBed_Click" Grid.ColumnSpan="2"/>
+        <Button x:Name="buttonSetInBed" Content="Start" Grid.Row="2" Grid.Column="3" Margin="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="buttonSetInBed_Click" Grid.ColumnSpan="2"/>
 
         <TextBlock Text="Asleep" TextWrapping="Wrap" Grid.Row="3" Margin="6" VerticalAlignment="Center" Grid.Column="1"/>
         <TextBlock x:Name="textBlockAsleep" Text="00:00" TextWrapping="Wrap" Grid.Row="3" Grid.Column="2" Margin="6" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -46,7 +46,7 @@
 
         <TextBlock Text="Out of Bed" TextWrapping="Wrap" Grid.Row="5" Margin="6" VerticalAlignment="Center" Grid.Column="1"/>
         <TextBlock x:Name="textBlockOutOfBed" Text="00:00" TextWrapping="Wrap" Grid.Row="5" Grid.Column="2" Margin="6" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Button x:Name="buttonSetOutOfBed" Content="Set" Grid.Row="5" Grid.Column="3" Margin="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="buttonSetOutOfBed_Click" Grid.ColumnSpan="2"/>
+        <Button x:Name="buttonSetOutOfBed" Content="Stop" Grid.Row="5" Grid.Column="3" Margin="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="buttonSetOutOfBed_Click" Grid.ColumnSpan="2"/>
 
         <TextBlock Text="Disturbances" TextWrapping="Wrap" Grid.Row="6" Margin="6" VerticalAlignment="Center" Grid.Column="1"/>
         <Slider Grid.Row="6" Maximum="10" TickFrequency="1" Margin="6" Grid.ColumnSpan="3" Grid.Column="2"/>

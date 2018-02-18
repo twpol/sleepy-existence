@@ -22,10 +22,16 @@ namespace Sleepy_Existence
     /// </summary>
     public sealed partial class Sleeping : Page
     {
+        const string FormatTimer = @"hh\:mm";
+        const string FormatTime = "HH:mm";
+
+        Brush ForegroundText = null;
+
         DateTimeOffset InBed;
         DateTimeOffset Awake;
         DateTimeOffset OutOfBed;
         int TimeToFallAsleepM;
+        bool IsSleeping;
 
         DispatcherTimer Timer = new DispatcherTimer();
 
@@ -33,9 +39,13 @@ namespace Sleepy_Existence
         {
             this.InitializeComponent();
 
+            ForegroundText = textBlockTimer.Foreground;
+
             Timer.Tick += Timer_Tick;
-            Timer.Interval = new TimeSpan(0, 0, 15);
+            Timer.Interval = new TimeSpan(0, 0, 1);
             Timer.Start();
+
+            UpdateDisplay();
         }
 
         private void Timer_Tick(object sender, object e)
@@ -47,16 +57,23 @@ namespace Sleepy_Existence
         {
             var asleep = InBed.AddMinutes(TimeToFallAsleepM);
 
-            textBlockTimer.Text = (DateTimeOffset.Now - InBed).ToString(@"hh\:mm");
-            textBlockInBed.Text = InBed.ToString("HH:mm");
-            textBlockAsleep.Text = asleep.ToString("HH:mm");
-            textBlockAwake.Text = Awake.ToString("HH:mm");
-            textBlockOutOfBed.Text = OutOfBed.ToString("HH:mm");
+            textBlockTimer.Text = (IsSleeping ? DateTimeOffset.Now - InBed : OutOfBed - InBed).ToString(FormatTimer);
+            textBlockInBed.Text = InBed.ToString(FormatTime);
+            textBlockAsleep.Text = asleep.ToString(FormatTime);
+            textBlockAwake.Text = Awake.ToString(FormatTime);
+            textBlockOutOfBed.Text = OutOfBed.ToString(FormatTime);
+
+            buttonSetInBed.IsEnabled = !IsSleeping;
+            buttonSetAwake.IsEnabled = IsSleeping;
+            buttonSetOutOfBed.IsEnabled = IsSleeping;
         }
 
         private void buttonSetInBed_Click(object sender, RoutedEventArgs e)
         {
             InBed = DateTimeOffset.Now;
+            Awake = DateTimeOffset.MinValue;
+            OutOfBed = DateTimeOffset.MinValue;
+            IsSleeping = true;
             UpdateDisplay();
         }
 
@@ -83,6 +100,7 @@ namespace Sleepy_Existence
         private void buttonSetOutOfBed_Click(object sender, RoutedEventArgs e)
         {
             OutOfBed = DateTimeOffset.Now;
+            IsSleeping = false;
             UpdateDisplay();
         }
     }
