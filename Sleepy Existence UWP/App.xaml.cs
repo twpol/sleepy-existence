@@ -50,6 +50,7 @@ namespace Sleepy_Existence
                 rootFrame = new Frame();
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
+                rootFrame.Navigated += OnNavigated;
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
@@ -58,6 +59,11 @@ namespace Sleepy_Existence
 
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
+
+                SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
+                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = rootFrame.CanGoBack ?
+                    AppViewBackButtonVisibility.Visible :
+                    AppViewBackButtonVisibility.Collapsed;
             }
 
             if (e.PrelaunchActivated == false)
@@ -72,18 +78,25 @@ namespace Sleepy_Existence
                 // Ensure the current window is active
                 Window.Current.Activate();
             }
-
-            SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;
         }
 
-        void App_BackRequested(object sender, BackRequestedEventArgs e)
+        void OnNavigated(object sender, NavigationEventArgs e)
         {
-            Frame rootFrame = Window.Current.Content as Frame;
+            var rootFrame = sender as Frame;
             if (rootFrame == null)
                 return;
 
-            // Navigate back if possible, and if the event has not 
-            // already been handled.
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = rootFrame.CanGoBack ?
+                AppViewBackButtonVisibility.Visible :
+                AppViewBackButtonVisibility.Collapsed;
+        }
+
+        void OnBackRequested(object sender, BackRequestedEventArgs e)
+        {
+            var rootFrame = Window.Current.Content as Frame;
+            if (rootFrame == null)
+                return;
+
             if (rootFrame.CanGoBack && e.Handled == false)
             {
                 e.Handled = true;
