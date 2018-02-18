@@ -9,18 +9,22 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
+            <RowDefinition Height="6"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="6"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="50*"/>
-            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="6"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="6"/>
         </Grid.ColumnDefinitions>
-        <TextBlock HorizontalAlignment="Stretch" Text="Exist Account" TextWrapping="Wrap" VerticalAlignment="Stretch" Margin="12,12,6,6"/>
-        <TextBlock x:Name="textBlockExistAccount" HorizontalAlignment="Stretch" Text="(none)" TextWrapping="Wrap" VerticalAlignment="Stretch" Grid.Column="1" Margin="6,12,12,6"/>
-        <Button x:Name="buttonExistLogIn" Content="Log in" VerticalAlignment="Stretch" Grid.Row="1" HorizontalAlignment="Stretch" Margin="12,6,6,6" Click="buttonExistLogIn_Click" IsEnabled="False"/>
-        <Button x:Name="buttonExistLogOut" Content="Log out" VerticalAlignment="Stretch" Grid.Row="1" HorizontalAlignment="Stretch" Grid.Column="1" Margin="6,6,12,6" IsEnabled="False" Click="buttonExistLogOut_Click"/>
+        <TextBlock HorizontalAlignment="Stretch" Text="Exist Account" TextWrapping="Wrap" VerticalAlignment="Stretch" Margin="6" Grid.Column="1" Grid.Row="1"/>
+        <TextBlock x:Name="textBlockExistAccount" HorizontalAlignment="Stretch" Text="(none)" TextWrapping="Wrap" VerticalAlignment="Stretch" Grid.Column="2" Margin="6" Grid.Row="1"/>
+        <Button x:Name="buttonExistLogIn" Content="Log in" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="6" Click="buttonExistLogIn_Click" IsEnabled="False" Grid.Column="1" Grid.Row="2"/>
+        <Button x:Name="buttonExistLogOut" Content="Log out" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="2" Margin="6" IsEnabled="False" Click="buttonExistLogOut_Click" Grid.Row="2"/>
 
     </Grid>
 

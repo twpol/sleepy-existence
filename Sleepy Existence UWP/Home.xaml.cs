@@ -31,5 +31,10 @@ namespace Sleepy_Existence
         {
             this.Frame.Navigate(typeof(Account));
         }
+
+        private void buttonSleep_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(Sleeping));
+        }
     }
 }

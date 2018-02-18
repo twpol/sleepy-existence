@@ -1,0 +1,55 @@
+﻿<Page
+    x:Class="Sleepy_Existence.Sleeping"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Sleepy_Existence"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    RequestedTheme="Dark">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="6"/>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="6"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="6"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock x:Name="textBlockTimer" Text="00:00" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="72" Margin="6" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="4"/>
+
+        <TextBlock Text="In to Bed" TextWrapping="Wrap" Grid.Row="2" Margin="6" VerticalAlignment="Center" Grid.Column="1"/>
+        <TextBlock x:Name="textBlockInBed" Text="00:00" TextWrapping="Wrap" Grid.Row="2" Grid.Column="2" Margin="6" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Button x:Name="buttonSetInBed" Content="Set" Grid.Row="2" Grid.Column="3" Margin="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="buttonSetInBed_Click" Grid.ColumnSpan="2"/>
+
+        <TextBlock Text="Asleep" TextWrapping="Wrap" Grid.Row="3" Margin="6" VerticalAlignment="Center" Grid.Column="1"/>
+        <TextBlock x:Name="textBlockAsleep" Text="00:00" TextWrapping="Wrap" Grid.Row="3" Grid.Column="2" Margin="6" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Button x:Name="buttonAsleepPlus" Content="+" Grid.Row="3" Grid.Column="3" Margin="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="buttonAsleepPlus_Click"/>
+        <Button x:Name="buttonAsleepMinus" Content="-" Grid.Row="3" Grid.Column="4" Margin="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="buttonAsleepMinus_Click"/>
+
+        <TextBlock Text="Awake" TextWrapping="Wrap" Grid.Row="4" Margin="6" VerticalAlignment="Center" Grid.Column="1"/>
+        <TextBlock x:Name="textBlockAwake" Text="00:00" TextWrapping="Wrap" Grid.Row="4" Grid.Column="2" Margin="6" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Button x:Name="buttonSetAwake" Content="Set" Grid.Row="4" Grid.Column="3" Margin="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="buttonSetAwake_Click" Grid.ColumnSpan="2"/>
+
+        <TextBlock Text="Out of Bed" TextWrapping="Wrap" Grid.Row="5" Margin="6" VerticalAlignment="Center" Grid.Column="1"/>
+        <TextBlock x:Name="textBlockOutOfBed" Text="00:00" TextWrapping="Wrap" Grid.Row="5" Grid.Column="2" Margin="6" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Button x:Name="buttonSetOutOfBed" Content="Set" Grid.Row="5" Grid.Column="3" Margin="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="buttonSetOutOfBed_Click" Grid.ColumnSpan="2"/>
+
+        <TextBlock Text="Disturbances" TextWrapping="Wrap" Grid.Row="6" Margin="6" VerticalAlignment="Center" Grid.Column="1"/>
+        <Slider Grid.Row="6" Maximum="10" TickFrequency="1" Margin="6" Grid.ColumnSpan="3" Grid.Column="2"/>
+
+    </Grid>
+</Page>

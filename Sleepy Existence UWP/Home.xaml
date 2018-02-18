@@ -8,15 +8,25 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="6"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="6"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="6"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="6"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Image Height="150" Width="310" Source="Assets/Wide310x150Logo.png"/>
-        <TextBlock Text="TODO: Put recent sleep graph/data here" TextWrapping="Wrap" Grid.Row="1" Margin="12,12,12,12"/>
-        <CommandBar Grid.Row="3">
+        <Image Height="150" Width="310" Source="Assets/Wide310x150Logo.png" Grid.Column="1" Grid.Row="1" Margin="6"/>
+        <TextBlock Text="TODO: Put recent sleep graph/data here" TextWrapping="Wrap" Grid.Row="2" Grid.Column="1" Margin="6"/>
+        <Button x:Name="buttonSleep" Content="Sleep" Grid.Row="4" Click="buttonSleep_Click" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="6"/>
+        <CommandBar Grid.Row="7" Grid.ColumnSpan="3" Margin="0">
             <CommandBar.Content>
                 <Grid/>
             </CommandBar.Content>
