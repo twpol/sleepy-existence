@@ -15,8 +15,8 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="6"/>
-            <ColumnDefinition Width="4*"/>
             <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="6"/>
@@ -24,12 +24,12 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="6"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="6"/>
         </Grid.RowDefinitions>
@@ -61,7 +61,7 @@
         <Button x:Name="buttonInterruptionPlus" Content="+" Grid.Row="6" Grid.Column="3" Margin="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="buttonInterruptionPlus_Click"/>
         <Button x:Name="buttonInterruptionMinus" Content="-" Grid.Row="6" Grid.Column="4" Margin="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="buttonInterruptionMinus_Click"/>
 
-        <Button x:Name="buttonSave" Content="Save" Grid.Row="7" Grid.Column="3" Margin="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="buttonSave_Click" Grid.ColumnSpan="2"/>
+        <Button x:Name="buttonSave" Content="Save" Grid.Row="8" Grid.Column="3" Margin="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="buttonSave_Click" Grid.ColumnSpan="2"/>
 
     </Grid>
 </Page>

@@ -6,9 +6,12 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Data.Json;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Foundation.Metadata;
 using Windows.Security.Credentials;
 using Windows.System.Display;
+using Windows.UI;
 using Windows.UI.Popups;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -37,6 +40,7 @@ namespace Sleepy_Existence
         int Interruptions;
 
         DispatcherTimer Timer = new DispatcherTimer();
+        Color? OldStatusBarForeground;
 
         public Sleeping()
         {
@@ -56,11 +60,28 @@ namespace Sleepy_Existence
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             DisplayRequest.RequestActive();
+
+            if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
+            {
+                var statusBar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
+                OldStatusBarForeground = statusBar.ForegroundColor;
+                statusBar.ForegroundColor = Windows.UI.Color.FromArgb(255, 128, 128, 128);
+            }
+
+            ApplicationView.GetForCurrentView().TryEnterFullScreenMode();
         }
 
         private void Page_Unloaded(object sender, RoutedEventArgs e)
         {
             DisplayRequest.RequestRelease();
+
+            if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
+            {
+                var statusBar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
+                statusBar.ForegroundColor = OldStatusBarForeground;
+            }
+
+            ApplicationView.GetForCurrentView().ExitFullScreenMode();
         }
 
         private void Timer_Tick(object sender, object e)
