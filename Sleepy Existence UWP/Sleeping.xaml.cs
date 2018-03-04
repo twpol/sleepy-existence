@@ -31,13 +31,13 @@ namespace Sleepy_Existence
     public sealed partial class Sleeping : Page
     {
         const string FormatTime = "HH:mm";
+        const string FormatTimeSpan = @"hh\:mm";
 
         DisplayRequest DisplayRequest;
-        DateTimeOffset InBed = DateTimeOffset.MinValue;
+        DateTimeOffset Bedtime = DateTimeOffset.MinValue;
+        TimeSpan AwakeTime;
         DateTimeOffset Awake = DateTimeOffset.MinValue;
-        DateTimeOffset OutOfBed = DateTimeOffset.MinValue;
-        int TimeToFallAsleepM;
-        int Interruptions;
+        int Awakenings;
 
         DispatcherTimer Timer = new DispatcherTimer();
         Color? OldStatusBarForeground;
@@ -52,7 +52,7 @@ namespace Sleepy_Existence
             Timer.Interval = new TimeSpan(0, 0, 61 - DateTimeOffset.Now.Second);
             Timer.Start();
 
-            InBed = DateTimeOffset.Now;
+            Bedtime = DateTimeOffset.Now;
 
             UpdateDisplay();
         }
@@ -92,42 +92,38 @@ namespace Sleepy_Existence
 
         void UpdateDisplay()
         {
-            var asleep = InBed.AddMinutes(TimeToFallAsleepM);
-
             textBlockClock.Text = DateTimeOffset.Now.ToString(FormatTime);
 
-            textBlockInBed.Text = InBed.ToString(FormatTime);
-            textBlockAsleep.Text = asleep.ToString(FormatTime);
+            textBlockInBed.Text = Bedtime.ToString(FormatTime);
+            textBlockAwakeTime.Text = AwakeTime.ToString(FormatTimeSpan);
             textBlockAwake.Text = Awake.ToString(FormatTime);
-            textBlockOutOfBed.Text = OutOfBed.ToString(FormatTime);
-            textBlockInterruptions.Text = Interruptions.ToString();
+            textBlockAwakenings.Text = Awakenings.ToString();
 
-            buttonSave.IsEnabled = InBed != DateTimeOffset.MinValue && Awake != DateTimeOffset.MinValue && OutOfBed != DateTimeOffset.MinValue;
+            buttonSave.IsEnabled = Bedtime != DateTimeOffset.MinValue && Awake != DateTimeOffset.MinValue;
         }
 
         private void buttonInBedPlus_Click(object sender, RoutedEventArgs e)
         {
-            InBed = InBed.AddMinutes(1);
+            Bedtime = Bedtime.AddMinutes(1);
             UpdateDisplay();
         }
 
         private void buttonInBedMinus_Click(object sender, RoutedEventArgs e)
         {
-            InBed = InBed.AddMinutes(-1);
+            Bedtime = Bedtime.AddMinutes(-1);
             UpdateDisplay();
         }
 
-        private void buttonAsleepPlus_Click(object sender, RoutedEventArgs e)
+        private void buttonAwakeTimePlus_Click(object sender, RoutedEventArgs e)
         {
-            TimeToFallAsleepM += 5;
+            AwakeTime = AwakeTime.Add(TimeSpan.FromMinutes(5));
             UpdateDisplay();
         }
 
-        private void buttonAsleepMinus_Click(object sender, RoutedEventArgs e)
+        private void buttonAwakeTimeMinus_Click(object sender, RoutedEventArgs e)
         {
-            TimeToFallAsleepM -= 5;
-            if (TimeToFallAsleepM < 0)
-                TimeToFallAsleepM = 0;
+            if (AwakeTime.TotalMinutes > 0)
+                AwakeTime = AwakeTime.Subtract(TimeSpan.FromMinutes(5));
             UpdateDisplay();
         }
 
@@ -149,35 +145,17 @@ namespace Sleepy_Existence
             UpdateDisplay();
         }
 
-        private void buttonOutOfBedPlus_Click(object sender, RoutedEventArgs e)
+        private void buttonAwakeningsPlus_Click(object sender, RoutedEventArgs e)
         {
-            if (OutOfBed == DateTimeOffset.MinValue)
-                OutOfBed = DateTimeOffset.Now;
-            else
-                OutOfBed = OutOfBed.AddMinutes(1);
+            Awakenings++;
             UpdateDisplay();
         }
 
-        private void buttonOutOfBedMinus_Click(object sender, RoutedEventArgs e)
+        private void buttonAwakeningsMinus_Click(object sender, RoutedEventArgs e)
         {
-            if (OutOfBed == DateTimeOffset.MinValue)
-                OutOfBed = DateTimeOffset.Now;
-            else
-                OutOfBed = OutOfBed.AddMinutes(-1);
-            UpdateDisplay();
-        }
-
-        private void buttonInterruptionPlus_Click(object sender, RoutedEventArgs e)
-        {
-            Interruptions++;
-            UpdateDisplay();
-        }
-
-        private void buttonInterruptionMinus_Click(object sender, RoutedEventArgs e)
-        {
-            Interruptions--;
-            if (Interruptions < 0)
-                Interruptions = 0;
+            Awakenings--;
+            if (Awakenings < 0)
+                Awakenings = 0;
             UpdateDisplay();
         }
 
@@ -189,22 +167,21 @@ namespace Sleepy_Existence
             client.DefaultRequestHeaders.Add("Authorization", $"Bearer {ExistAccessToken.Password}");
 
             var jsonDate = JsonValue.CreateStringValue(DateTimeOffset.Now.ToString("yyyy-MM-dd"));
-            var asleep = InBed.AddMinutes(TimeToFallAsleepM);
             var content = new HttpStringContent(new JsonArray() {
                 new JsonObject() {
                     { "name", JsonValue.CreateStringValue("time_in_bed") },
                     { "date", jsonDate },
-                    { "value", JsonValue.CreateStringValue((OutOfBed - InBed).TotalMinutes.ToString("F0")) }
+                    { "value", JsonValue.CreateStringValue((Awake - Bedtime).TotalMinutes.ToString("F0")) }
                 },
                 new JsonObject() {
                     { "name", JsonValue.CreateStringValue("sleep") },
                     { "date", jsonDate },
-                    { "value", JsonValue.CreateStringValue((Awake - asleep).TotalMinutes.ToString("F0")) }
+                    { "value", JsonValue.CreateStringValue((Awake - Bedtime - AwakeTime).TotalMinutes.ToString("F0")) }
                 },
                 new JsonObject() {
                     { "name", JsonValue.CreateStringValue("sleep_start") },
                     { "date", jsonDate },
-                    { "value", JsonValue.CreateStringValue(((asleep.TimeOfDay.TotalMinutes + 12 * 60) % (24 * 60)).ToString("F0")) }
+                    { "value", JsonValue.CreateStringValue(((Bedtime.TimeOfDay.TotalMinutes + 12 * 60) % (24 * 60)).ToString("F0")) }
                 },
                 new JsonObject() {
                     { "name", JsonValue.CreateStringValue("sleep_end") },
@@ -214,7 +191,7 @@ namespace Sleepy_Existence
                 new JsonObject() {
                     { "name", JsonValue.CreateStringValue("sleep_awakenings") },
                     { "date", jsonDate },
-                    { "value", JsonValue.CreateStringValue(Interruptions.ToString("F0")) }
+                    { "value", JsonValue.CreateStringValue(Awakenings.ToString("F0")) }
                 },
             }.Stringify(), Windows.Storage.Streams.UnicodeEncoding.Utf8, "application/json");
 
