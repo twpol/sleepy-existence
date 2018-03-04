@@ -204,7 +204,7 @@ namespace Sleepy_Existence
                 new JsonObject() {
                     { "name", JsonValue.CreateStringValue("sleep_start") },
                     { "date", jsonDate },
-                    { "value", JsonValue.CreateStringValue((asleep.TimeOfDay.TotalMinutes - 12 * 60).ToString("F0")) }
+                    { "value", JsonValue.CreateStringValue(((asleep.TimeOfDay.TotalMinutes + 12 * 60) % (24 * 60)).ToString("F0")) }
                 },
                 new JsonObject() {
                     { "name", JsonValue.CreateStringValue("sleep_end") },
