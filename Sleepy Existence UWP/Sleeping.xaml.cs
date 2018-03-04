@@ -226,7 +226,12 @@ namespace Sleepy_Existence
             }
 
             var jsonResponse = JsonValue.Parse(await response.Content.ReadAsStringAsync());
-            // TODO: Check result
+            var failed = jsonResponse.GetObject().GetNamedArray("failed");
+            if (failed.Count > 0)
+            {
+                await new MessageDialog(failed.ToString(), "Failed to submit some values").ShowAsync();
+                return;
+            }
 
             this.Frame.GoBack();
         }
