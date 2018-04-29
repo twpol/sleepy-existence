@@ -100,6 +100,7 @@ namespace Sleepy_Existence
             textBlockAwakenings.Text = Awakenings.ToString();
 
             buttonSave.IsEnabled = Bedtime != DateTimeOffset.MinValue && Awake != DateTimeOffset.MinValue;
+            buttonSave.Visibility = buttonSave.IsEnabled ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void buttonInBedPlus_Click(object sender, RoutedEventArgs e)
