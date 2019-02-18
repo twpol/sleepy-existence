@@ -1,24 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Data.Json;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.Foundation.Metadata;
-using Windows.Security.Credentials;
 using Windows.System.Display;
 using Windows.UI;
 using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 using Windows.Web.Http;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -162,10 +150,7 @@ namespace Sleepy_Existence
 
         private async void buttonSave_Click(object sender, RoutedEventArgs e)
         {
-            var client = new HttpClient();
-            var vault = new PasswordVault();
-            var ExistAccessToken = vault.Retrieve("exist.io", "access_token");
-            client.DefaultRequestHeaders.Add("Authorization", $"Bearer {ExistAccessToken.Password}");
+            var exist = new ExistClient();
 
             var jsonDate = JsonValue.CreateStringValue(DateTimeOffset.Now.ToString("yyyy-MM-dd"));
             var content = new HttpStringContent(new JsonArray() {
@@ -196,7 +181,7 @@ namespace Sleepy_Existence
                 },
             }.Stringify(), Windows.Storage.Streams.UnicodeEncoding.Utf8, "application/json");
 
-            var response = await client.PostAsync(new Uri("https://exist.io/api/1/attributes/update/"), content);
+            var response = await exist.Http.PostAsync(new Uri("https://exist.io/api/1/attributes/update/"), content);
             if (!response.IsSuccessStatusCode)
             {
                 await new MessageDialog(response.RequestMessage.RequestUri.ToString(), response.StatusCode.ToString()).ShowAsync();

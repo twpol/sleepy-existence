@@ -95,6 +95,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AuthorizeException.cs" />
+    <Compile Include="ExistClient.cs" />
     <Compile Include="ExistClientData.cs" />
     <Compile Include="Account.xaml.cs">
       <DependentUpon>Account.xaml</DependentUpon>
