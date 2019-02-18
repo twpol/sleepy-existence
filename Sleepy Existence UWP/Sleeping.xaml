@@ -13,11 +13,11 @@
             <Setter Property="Background" Value="#FF000000"/>
         </Style>
         <Style TargetType="TextBlock">
-            <Setter Property="Foreground" Value="#FF400000"/>
+            <Setter Property="Foreground" Value="#FF800000"/>
         </Style>
         <Style TargetType="Button">
-            <Setter Property="Background" Value="#FF200000"/>
-            <Setter Property="Foreground" Value="#FF400000"/>
+            <Setter Property="Background" Value="#FF400000"/>
+            <Setter Property="Foreground" Value="#FF800000"/>
         </Style>
     </Page.Resources>
 
