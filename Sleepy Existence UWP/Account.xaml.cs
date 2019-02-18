@@ -42,6 +42,15 @@ namespace Sleepy_Existence
         {
             Debug.Assert(Exist.HasCredentials, "Must have Exist credentials to get account name");
 
+            try
+            {
+                await Exist.MaybeRefreshTokens();
+            }
+            catch (ExistException error)
+            {
+                await new MessageDialog(error.Message, "Refresh tokens failed").ShowAsync();
+            }
+
             var response = await Exist.Http.GetAsync(new Uri("https://exist.io/api/1/users/$self/today/"));
             if (!response.IsSuccessStatusCode)
             {
@@ -66,7 +75,7 @@ namespace Sleepy_Existence
                 Exist.Authorize();
                 UpdateExistAccount();
             }
-            catch (AuthorizeException error)
+            catch (ExistException error)
             {
                 await new MessageDialog(error.Message, "Authorize failed").ShowAsync();
             }

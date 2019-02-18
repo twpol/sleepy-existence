@@ -152,6 +152,15 @@ namespace Sleepy_Existence
         {
             var exist = new ExistClient();
 
+            try
+            {
+                await exist.MaybeRefreshTokens();
+            }
+            catch (ExistException error)
+            {
+                await new MessageDialog(error.Message, "Refresh tokens failed").ShowAsync();
+            }
+
             var jsonDate = JsonValue.CreateStringValue(DateTimeOffset.Now.ToString("yyyy-MM-dd"));
             var content = new HttpStringContent(new JsonArray() {
                 new JsonObject() {

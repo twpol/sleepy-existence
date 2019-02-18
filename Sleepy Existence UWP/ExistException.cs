@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Sleepy_Existence
 {
-    class AuthorizeException : Exception
+    class ExistException : Exception
     {
-        public AuthorizeException(string message)
+        public ExistException(string message)
             : base(message)
         {
         }
