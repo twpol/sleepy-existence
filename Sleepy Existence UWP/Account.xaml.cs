@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Windows.Data.Json;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -21,14 +22,14 @@ namespace Sleepy_Existence
             this.InitializeComponent();
         }
 
-        void UpdateExistAccount()
+        async Task UpdateExistAccount()
         {
             if (Exist.HasCredentials)
             {
                 textBlockExistAccount.Text = "(retrieving account...)";
                 buttonExistLogIn.IsEnabled = false;
                 buttonExistLogOut.IsEnabled = true;
-                UpdateExistAccountName();
+                await UpdateExistAccountName();
             }
             else
             {
@@ -38,7 +39,7 @@ namespace Sleepy_Existence
             }
         }
 
-        async void UpdateExistAccountName()
+        async Task UpdateExistAccountName()
         {
             Debug.Assert(Exist.HasCredentials, "Must have Exist credentials to get account name");
 
@@ -63,17 +64,17 @@ namespace Sleepy_Existence
             textBlockExistAccount.Text = $"{today.GetObject().GetNamedString("username")} ({today.GetObject().GetNamedString("first_name")} {today.GetObject().GetNamedString("last_name")})";
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            UpdateExistAccount();
+            await UpdateExistAccount();
         }
 
         private async void buttonExistLogIn_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                Exist.Authorize();
-                UpdateExistAccount();
+                await Exist.Authorize();
+                await UpdateExistAccount();
             }
             catch (ExistException error)
             {
@@ -96,7 +97,7 @@ namespace Sleepy_Existence
             }
 
             Exist.Deauthorize();
-            UpdateExistAccount();
+            await UpdateExistAccount();
         }
     }
 }

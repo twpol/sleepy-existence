@@ -38,7 +38,7 @@ namespace Sleepy_Existence
             get => null != AccessToken;
         }
 
-        public async void Authorize()
+        public async Task Authorize()
         {
             var endUri = new Uri("https://sleepyexistence.co.uk/authorize/done");
             var startUri = new Uri($"https://exist.io/oauth2/authorize?response_type=code&client_id={ExistClientData.ClientId}&redirect_uri={endUri.ToString()}&scope=read+write");
@@ -102,10 +102,9 @@ namespace Sleepy_Existence
 
         void SetTokens(string accessToken, string refreshToken)
         {
-            if (AccessToken == null) Vault.Add(AccessToken = new PasswordCredential("exist.io", "access_token", ""));
-            if (RefreshToken == null) Vault.Add(RefreshToken = new PasswordCredential("exist.io", "refresh_token", ""));
-            AccessToken.Password = accessToken;
-            RefreshToken.Password = refreshToken;
+            ClearTokens();
+            if (AccessToken == null) Vault.Add(AccessToken = new PasswordCredential("exist.io", "access_token", accessToken));
+            if (RefreshToken == null) Vault.Add(RefreshToken = new PasswordCredential("exist.io", "refresh_token", refreshToken));
             UpdateHttp();
         }
 
