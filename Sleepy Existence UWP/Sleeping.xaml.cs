@@ -43,6 +43,7 @@ namespace Sleepy_Existence
             Bedtime = DateTimeOffset.Now;
 
             UpdateDisplay();
+            Acquire();
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -76,6 +77,60 @@ namespace Sleepy_Existence
         {
             Timer.Interval = new TimeSpan(0, 0, 61 - DateTimeOffset.Now.Second);
             UpdateDisplay();
+        }
+
+        async void Acquire()
+        {
+            var exist = new ExistClient();
+
+            try
+            {
+                await exist.MaybeRefreshTokens();
+            }
+            catch (ExistException error)
+            {
+                await new MessageDialog(error.Message, "Refresh tokens failed").ShowAsync();
+            }
+
+            var content = new HttpStringContent(new JsonArray() {
+                new JsonObject() {
+                    { "name", JsonValue.CreateStringValue("time_in_bed") },
+                    { "active", JsonValue.CreateBooleanValue(true) }
+                },
+                new JsonObject() {
+                    { "name", JsonValue.CreateStringValue("sleep") },
+                    { "active", JsonValue.CreateBooleanValue(true) }
+                },
+                new JsonObject() {
+                    { "name", JsonValue.CreateStringValue("sleep_start") },
+                    { "active", JsonValue.CreateBooleanValue(true) }
+                },
+                new JsonObject() {
+                    { "name", JsonValue.CreateStringValue("sleep_end") },
+                    { "active", JsonValue.CreateBooleanValue(true) }
+                },
+                new JsonObject() {
+                    { "name", JsonValue.CreateStringValue("sleep_awakenings") },
+                    { "active", JsonValue.CreateBooleanValue(true) }
+                },
+            }.Stringify(), Windows.Storage.Streams.UnicodeEncoding.Utf8, "application/json");
+
+            var response = await exist.Http.PostAsync(new Uri("https://exist.io/api/1/attributes/acquire/"), content);
+            if (!response.IsSuccessStatusCode)
+            {
+                await new MessageDialog(response.RequestMessage.RequestUri.ToString(), response.StatusCode.ToString()).ShowAsync();
+                this.Frame.GoBack();
+                return;
+            }
+
+            var jsonResponse = JsonValue.Parse(await response.Content.ReadAsStringAsync());
+            var failed = jsonResponse.GetObject().GetNamedArray("failed");
+            if (failed.Count > 0)
+            {
+                await new MessageDialog(failed.ToString(), "Failed to submit some values").ShowAsync();
+                this.Frame.GoBack();
+                return;
+            }
         }
 
         void UpdateDisplay()
