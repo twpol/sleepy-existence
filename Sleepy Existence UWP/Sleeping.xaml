@@ -47,23 +47,23 @@
 
         <TextBlock Text="Bedtime" TextWrapping="Wrap" Grid.Row="2" Margin="6" VerticalAlignment="Center" Grid.Column="1"/>
         <TextBlock x:Name="textBlockInBed" Text="00:00" TextWrapping="Wrap" Grid.Row="2" Grid.Column="2" Margin="6" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Button x:Name="buttonInBedPlus" Content="+" Grid.Row="2" Grid.Column="3" Margin="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="buttonInBedPlus_Click"/>
-        <Button x:Name="buttonInBedMinus" Content="-" Grid.Row="2" Grid.Column="4" Margin="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="buttonInBedMinus_Click"/>
+        <Button x:Name="buttonInBedMinus" Content="-" Grid.Row="2" Grid.Column="3" Margin="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="buttonInBedMinus_Click"/>
+        <Button x:Name="buttonInBedPlus" Content="+" Grid.Row="2" Grid.Column="4" Margin="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="buttonInBedPlus_Click"/>
 
         <TextBlock Text="Awake time" TextWrapping="Wrap" Grid.Row="3" Margin="6" VerticalAlignment="Center" Grid.Column="1"/>
         <TextBlock x:Name="textBlockAwakeTime" Text="00:00" TextWrapping="Wrap" Grid.Row="3" Grid.Column="2" Margin="6" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Button x:Name="buttonAwakeTimePlus" Content="+" Grid.Row="3" Grid.Column="3" Margin="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="buttonAwakeTimePlus_Click"/>
-        <Button x:Name="buttonAwakeTimeMinus" Content="-" Grid.Row="3" Grid.Column="4" Margin="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="buttonAwakeTimeMinus_Click"/>
+        <Button x:Name="buttonAwakeTimeMinus" Content="-" Grid.Row="3" Grid.Column="3" Margin="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="buttonAwakeTimeMinus_Click"/>
+        <Button x:Name="buttonAwakeTimePlus" Content="+" Grid.Row="3" Grid.Column="4" Margin="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="buttonAwakeTimePlus_Click"/>
 
         <TextBlock Text="Wake time" TextWrapping="Wrap" Grid.Row="4" Margin="6" VerticalAlignment="Center" Grid.Column="1"/>
         <TextBlock x:Name="textBlockAwake" Text="00:00" TextWrapping="Wrap" Grid.Row="4" Grid.Column="2" Margin="6" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Button x:Name="buttonAwakePlus" Content="+" Grid.Row="4" Grid.Column="3" Margin="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="buttonAwakePlus_Click"/>
-        <Button x:Name="buttonAwakeMinus" Content="-" Grid.Row="4" Grid.Column="4" Margin="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="buttonAwakeMinus_Click"/>
+        <Button x:Name="buttonAwakeMinus" Content="-" Grid.Row="4" Grid.Column="3" Margin="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="buttonAwakeMinus_Click"/>
+        <Button x:Name="buttonAwakePlus" Content="+" Grid.Row="4" Grid.Column="4" Margin="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="buttonAwakePlus_Click"/>
 
         <TextBlock Text="Awakenings" TextWrapping="Wrap" Grid.Row="5" Margin="6" VerticalAlignment="Center" Grid.Column="1"/>
         <TextBlock x:Name="textBlockAwakenings" Text="0" TextWrapping="Wrap" Grid.Row="5" Grid.Column="2" Margin="6" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Button x:Name="buttonAwakeningsPlus" Content="+" Grid.Row="5" Grid.Column="3" Margin="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="buttonAwakeningsPlus_Click"/>
-        <Button x:Name="buttonAwakeningsMinus" Content="-" Grid.Row="5" Grid.Column="4" Margin="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="buttonAwakeningsMinus_Click"/>
+        <Button x:Name="buttonAwakeningsMinus" Content="-" Grid.Row="5" Grid.Column="3" Margin="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="buttonAwakeningsMinus_Click"/>
+        <Button x:Name="buttonAwakeningsPlus" Content="+" Grid.Row="5" Grid.Column="4" Margin="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="buttonAwakeningsPlus_Click"/>
 
         <Button x:Name="buttonSave" Content="Save" Grid.Row="8" Grid.Column="3" Margin="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="buttonSave_Click" Grid.ColumnSpan="2"/>
 
